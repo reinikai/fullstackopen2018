@@ -1,0 +1,13 @@
+@startuml
+Käyttäjä -> Selain: käyttäjä lataa osoitteen\nhttps://fullstack-exampleapp.herokuapp.com/notes
+Selain -> Palvelin: GET https://fullstack-exampleapp.herokuapp.com/notes
+Palvelin -> Selain: HTTP 200 OK, palvelin palauttaa HTML-rungon
+Selain -> Palvelin: Koska HTML-koodissa on määritelty CSS-tiedosto, tapahtuu pyyntö:\nGET https://fullstack-exampleapp.herokuapp.com/main.css
+Palvelin -> Selain: HTTP 200 OK, palvelin palauttaa CSS-tyylitiedoston
+Selain -> Käyttäjä: Selain esittää käyttäjälle HTML-rungon,\njoka on muotoiltu haetulla CSS-tiedostolla
+Selain -> Palvelin: Koska HTML-koodissa on määritelty JS-tiedosto, tapahtuu pyyntö:\nGET https://fullstack-exampleapp.herokuapp.com/main.js
+Palvelin -> Selain: HTTP 200 OK, palvelin palauttaa JS-skriptitiedoston
+Selain -> Palvelin: Koska ladatussa JS-tiedostossa on datahaku, tapahtuu pyyntö:\nGET https://fullstack-exampleapp.herokuapp.com/data.json
+Palvelin -> Selain: HTTP 200 OK, palvelin palauttaa JSON-datatiedoston
+Selain -> Käyttäjä: Selain täydentää esitetyn sivun JSON-tiedostosta\nladatulla datalla JS-skriptitiedoston avulla.
+@enduml

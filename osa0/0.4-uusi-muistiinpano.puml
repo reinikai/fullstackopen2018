@@ -1,0 +1,9 @@
+@startuml
+Käyttäjä -> Selain: käyttäjä kirjoittaa tekstikenttään haluamansa tekstin
+Käyttäjä -> Selain: käyttäjä painaa Talleta-painiketta
+Selain -> Palvelin: POST https://fullstack-exampleapp.herokuapp.com/new_note
+Palvelin -> Selain: Palvelin käsittelee POST-pyynnön ja tallentaa siihen\nsisältyvän käyttäjän kirjoittaman tekstin. Palvelin palauttaa\nHTTP 302 Found eli edelleenohjauksen osoitteeseen:\n/notes
+Selain -> Palvelin: Selain hakee osoitteen /notes GET-pyynnöllä kuten\naikaisemmin kuvattu kaaviossa 0.3, ainoastaan sillä erolla,\nettä käyttäjän ei tarvitse tässä vaiheessa itse kirjoittaa\nosoitetta.
+Palvelin -> Selain: 302-edelleenohjauksen takia koko sivu renderöidään\nuudelleen. Palvelin palauttaa HTML, CSS, JS ja JSON kuten\naikaisemmin kuvattu kaaviossa 0.3.
+Selain -> Käyttäjä: Selain esittää käyttäjälle sivun, johon on nyt lisätty\nkäyttäjän aikaisemmin kirjoittama teksti.
+@enduml
