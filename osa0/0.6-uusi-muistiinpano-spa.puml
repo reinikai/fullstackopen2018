@@ -1,0 +1,7 @@
+@startuml
+Käyttäjä -> Selain: käyttäjä kirjoittaa tekstikenttään haluamansa tekstin
+Käyttäjä -> Selain: käyttäjä painaa Talleta-painiketta
+Selain -> Käyttäjä: selain lisää ladatun JS-koodin avulla käyttäjän\nkirjoittaman tekstin HTML-runkoon
+Selain -> Palvelin: POST https://fullstack-exampleapp.herokuapp.com/new_note_spa
+Palvelin -> Selain: Palvelin käsittelee POST-pyynnön ja tallentaa siihen\nsisältyvän käyttäjän kirjoittaman tekstin. Palvelin palauttaa\nHTTP 201 Created ja JSON-viestin, joka ilmoittaa\ntallennuksen onnistumisesta.
+@enduml
