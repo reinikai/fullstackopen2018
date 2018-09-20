@@ -1,22 +1,35 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-const Stats = (props) => {
+const Statistics = (props) => {
 
     const total = props.grades.good + props.grades.neutral + props.grades.bad
     const avg = (props.grades.good - props.grades.bad)/total
-    const positive = (props.grades.good/total)*100
+    const positive = (props.grades.good/total)*100 + ' %'
 
     return (
         <div>
-            <p>hyvä {props.grades.good}</p>
-            <p>neutraali {props.grades.neutral}</p>
-            <p>huono {props.grades.bad}</p>
-            <p>keskiarvo {avg}</p>
-            <p>positiivisia {positive} %</p>
+            <Statistic name="hyvä" value={props.grades.good}/>
+            <Statistic name="neutraali" value={props.grades.neutral}/>
+            <Statistic name="huono" value={props.grades.bad}/>
+            <Statistic name="keskiarvo" value={avg}/>
+            <Statistic name="positiivisia" value={positive}/>
         </div>
     )
 }
+
+const Statistic = (props) => {
+    return (
+        <p>{props.name} {props.value}</p>
+    )
+}
+
+const Button = (props) => {
+    return (
+        <button onClick={props.handler}>{props.name}</button>
+    )
+}
+
 
 class App extends React.Component {
     constructor(props) {
@@ -50,11 +63,11 @@ class App extends React.Component {
         return (
             <div>
                 <h1>anna palautetta</h1>
-                <button onClick={this.goodClick}>hyvä</button>
-                <button onClick={this.neutralClick}>neutraali</button>
-                <button onClick={this.badClick}>huono</button>
+                <Button handler={this.goodClick} name="hyvä"/>
+                <Button handler={this.neutralClick} name="neutraali"/>
+                <Button handler={this.badClick} name="huono"/>
                 <h1>statistiikka</h1>
-                <Stats grades={this.state}/>
+                <Statistics grades={this.state}/>
             </div>
         )
     }
