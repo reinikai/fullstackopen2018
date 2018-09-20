@@ -46,31 +46,21 @@ class App extends React.Component {
         }
     }
 
-    goodClick = () => {
-        this.setState({
-            good: this.state.good + 1,
-        })
-    }
-
-    neutralClick = () => {
-        this.setState({
-            neutral: this.state.neutral + 1,
-        })
-    }
-
-    badClick = () => {
-        this.setState({
-            bad: this.state.bad + 1,
-        })
+    clickHandler = (value) => {
+        return () => {
+            this.setState({
+                [value]: this.state[value] + 1,
+            })
+        }
     }
 
     render() {
         return (
             <div>
                 <h1>anna palautetta</h1>
-                <Button handler={this.goodClick} name="hyvä"/>
-                <Button handler={this.neutralClick} name="neutraali"/>
-                <Button handler={this.badClick} name="huono"/>
+                <Button handler={this.clickHandler('good')} name="hyvä"/>
+                <Button handler={this.clickHandler('neutral')} name="neutraali"/>
+                <Button handler={this.clickHandler('bad')} name="huono"/>
                 <h1>statistiikka</h1>
                 <Statistics grades={this.state}/>
             </div>
