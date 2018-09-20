@@ -2,11 +2,18 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 const Stats = (props) => {
+
+    const total = props.grades.good + props.grades.neutral + props.grades.bad
+    const avg = (props.grades.good - props.grades.bad)/total
+    const positive = (props.grades.good/total)*100
+
     return (
         <div>
             <p>hyvä {props.grades.good}</p>
             <p>neutraali {props.grades.neutral}</p>
             <p>huono {props.grades.bad}</p>
+            <p>keskiarvo {avg}</p>
+            <p>positiivisia {positive} %</p>
         </div>
     )
 }
