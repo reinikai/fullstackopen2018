@@ -7,15 +7,20 @@ const Statistics = (props) => {
     const avg = (props.grades.good - props.grades.bad)/total
     const positive = (props.grades.good/total)*100 + ' %'
 
-    return (
-        <div>
-            <Statistic name="hyvä" value={props.grades.good}/>
-            <Statistic name="neutraali" value={props.grades.neutral}/>
-            <Statistic name="huono" value={props.grades.bad}/>
-            <Statistic name="keskiarvo" value={avg}/>
-            <Statistic name="positiivisia" value={positive}/>
-        </div>
-    )
+    if (total > 0) {
+
+        return (
+            <div>
+                <Statistic name="hyvä" value={props.grades.good}/>
+                <Statistic name="neutraali" value={props.grades.neutral}/>
+                <Statistic name="huono" value={props.grades.bad}/>
+                <Statistic name="keskiarvo" value={avg}/>
+                <Statistic name="positiivisia" value={positive}/>
+            </div>
+        )
+    } else {
+        return (<div>ei yhtään palautetta annettu</div>)
+    }
 }
 
 const Statistic = (props) => {
