@@ -4,18 +4,22 @@ import ReactDOM from 'react-dom'
 const Statistics = (props) => {
 
     const total = props.grades.good + props.grades.neutral + props.grades.bad
-    const avg = (props.grades.good - props.grades.bad)/total
-    const positive = (props.grades.good/total)*100 + ' %'
+    const avg = ((props.grades.good - props.grades.bad)/total).toFixed(1)
+    const positive = ((props.grades.good/total)*100).toFixed(1) + ' %'
 
     if (total > 0) {
 
         return (
             <div>
-                <Statistic name="hyvä" value={props.grades.good}/>
-                <Statistic name="neutraali" value={props.grades.neutral}/>
-                <Statistic name="huono" value={props.grades.bad}/>
-                <Statistic name="keskiarvo" value={avg}/>
-                <Statistic name="positiivisia" value={positive}/>
+                <table>
+                    <tbody>
+                        <Statistic name="hyvä" value={props.grades.good}/>
+                        <Statistic name="neutraali" value={props.grades.neutral}/>
+                        <Statistic name="huono" value={props.grades.bad}/>
+                        <Statistic name="keskiarvo" value={avg}/>
+                        <Statistic name="positiivisia" value={positive}/>
+                    </tbody>
+                </table>
             </div>
         )
     } else {
@@ -25,7 +29,7 @@ const Statistics = (props) => {
 
 const Statistic = (props) => {
     return (
-        <p>{props.name} {props.value}</p>
+        <tr><td>{props.name}</td><td>{props.value}</td></tr>
     )
 }
 
