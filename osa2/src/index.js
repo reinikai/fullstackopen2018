@@ -6,7 +6,7 @@ const Kurssi = ({ kurssi }) => {
         <div>
             <Otsikko kurssi={kurssi} />
             <Sisalto kurssi={kurssi} />
-            <Yhteensa osat={kurssi} />
+            <Yhteensa kurssi={kurssi} />
         </div>
     )
 }
@@ -36,10 +36,14 @@ const Sisalto = ({kurssi}) => {
     )
 }
 
-const Yhteensa = (props) => {
+const Yhteensa = ({kurssi}) => {
+
+    const reducer = (accumulator, currentValue) => accumulator + parseInt(currentValue.tehtavia, 0)
+    const yht = kurssi.osat.reduce(reducer, 0);
+
     return (
         <div>
-            <p>yhteensä {props.osat.osat[0].tehtavia + props.osat.osat[1].tehtavia + props.osat.osat[2].tehtavia} tehtävää</p>
+            <p>yhteensä {yht} tehtävää</p>
         </div>
     )
 }
