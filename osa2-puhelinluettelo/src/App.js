@@ -25,6 +25,13 @@ class App extends React.Component {
 
     addName = (event) => {
         event.preventDefault()
+
+        const checkName = obj => obj.name === this.state.newName
+        if (this.state.persons.some(checkName)) {
+            alert('Nimi on jo luettelossa!')
+            return false
+        }
+
         const nameObject = {
             name: this.state.newName,
         }
