@@ -1,5 +1,5 @@
 import React from 'react'
-import axios from 'axios'
+import personService from './services/persons'
 
 
 const Person = ({person}) => {
@@ -28,10 +28,10 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        axios
-            .get('http://localhost:3001/persons')
+        personService
+            .read()
             .then(response => {
-                this.setState({ persons: response.data })
+                this.setState({persons: response.data})
             })
     }
 
@@ -57,8 +57,8 @@ class App extends React.Component {
             number: this.state.newNumber
         }
 
-        axios
-            .post('http://localhost:3001/persons', nameObject)
+        personService
+            .create(nameObject)
             .then(response => {
                 this.setState({
                     persons: this.state.persons.concat(response.data),
