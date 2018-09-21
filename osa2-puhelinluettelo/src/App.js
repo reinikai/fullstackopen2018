@@ -7,6 +7,14 @@ const Person = ({person}) => {
     )
 }
 
+const InputField = (props) => {
+    return (
+        <div>
+            {props.name}: <input value={props.value} onChange={props.handler} />
+        </div>
+    )
+}
+
 
 class App extends React.Component {
     constructor(props) {
@@ -56,14 +64,8 @@ class App extends React.Component {
             <div>
                 <h2>Puhelinluettelo</h2>
                 <form onSubmit={this.addPerson}>
-                    <div>
-                        nimi: <input value={this.state.newName}
-                                     onChange={this.handleNameChange} />
-                    </div>
-                    <div>
-                        numero: <input  value={this.state.newNumber}
-                                        onChange={this.handleNumberChange} />
-                    </div>
+                    <InputField name="nimi" value={this.state.newName} handler={this.handleNameChange}/>
+                    <InputField name="numero" value={this.state.newNumber} handler={this.handleNumberChange}/>
                     <div>
                         <button type="submit">lisää</button>
                     </div>
