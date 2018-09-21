@@ -9,4 +9,8 @@ const read = () => {
     return axios.get(baseUrl)
 }
 
-export default { create, read }
+const _delete = (id) => {
+    return axios.delete(baseUrl + '/' + id)
+}
+
+export default { create, read, _delete }
