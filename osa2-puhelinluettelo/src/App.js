@@ -2,9 +2,27 @@ import React from 'react'
 import personService from './services/persons'
 
 
+const DeleteButton = ({person}) => {
+    const handleDelete = (event) => {
+
+        if (window.confirm('Poistetaanko varmasti ' + person.name + '?')) {
+            personService
+                ._delete(person.id)
+                .then(response => {
+                    
+                })
+        }
+    }
+
+    return (
+        <button onClick={handleDelete}>Poista</button>
+    )
+}
+
+
 const Person = ({person}) => {
     return (
-        <tr><td>{person.name}</td><td>{person.number}</td></tr>
+        <tr><td>{person.name}</td><td>{person.number}</td><td><DeleteButton person={person}/></td></tr>
     )
 }
 
