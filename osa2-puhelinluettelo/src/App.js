@@ -1,12 +1,13 @@
 import React from 'react'
 import personService from './services/persons'
+import './index.css'
 
 const Notification = ({ message }) => {
     if (message === null) {
         return null
     }
     return (
-        <div className="error">
+        <div className="toast">
             {message}
         </div>
     )
@@ -17,7 +18,6 @@ const DeleteButton = ({handler}) => {
         <button onClick={handler}>Poista</button>
     )
 }
-
 
 const Person = (props) => {
     return (
@@ -40,7 +40,8 @@ class App extends React.Component {
         this.state = {
             persons: [],
             newName: '',
-            newNumber: ''
+            newNumber: '',
+            toast: null
         }
     }
 
@@ -71,6 +72,10 @@ class App extends React.Component {
             personService
                 ._delete(id)
                 .then(response => {
+                    this.setState({toast: 'Poistettiin onnistuneesti'})
+                    setTimeout(() => {
+                        this.setState({toast: null})
+                    }, 5000)
                     this.read()
                 })
         }
@@ -96,8 +101,12 @@ class App extends React.Component {
                 this.setState({
                     persons: this.state.persons.concat(response.data),
                     newName: '',
-                    newNumber: ''
+                    newNumber: '',
+                    toast: 'Henkilö lisätty onnistuneesti!'
                 })
+                setTimeout(() => {
+                    this.setState({toast: null})
+                }, 5000)
             })
     }
 
@@ -105,6 +114,8 @@ class App extends React.Component {
         return (
             <div>
                 <h2>Puhelinluettelo</h2>
+                <Notification message={this.state.toast}/>
+
                 <form onSubmit={this.addPerson}>
                     <InputField name="nimi" value={this.state.newName} handler={this.handleNameChange}/>
                     <InputField name="numero" value={this.state.newNumber} handler={this.handleNumberChange}/>
