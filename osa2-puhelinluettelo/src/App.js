@@ -9,7 +9,7 @@ const DeleteButton = ({person}) => {
             personService
                 ._delete(person.id)
                 .then(response => {
-                    
+                    window.location.reload()
                 })
         }
     }
