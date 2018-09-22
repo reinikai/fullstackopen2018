@@ -1,28 +1,27 @@
 import React from 'react'
 import personService from './services/persons'
 
-
-const DeleteButton = ({person}) => {
-    const handleDelete = (event) => {
-
-        if (window.confirm('Poistetaanko varmasti ' + person.name + '?')) {
-            personService
-                ._delete(person.id)
-                .then(response => {
-                    window.location.reload()
-                })
-        }
+const Notification = ({ message }) => {
+    if (message === null) {
+        return null
     }
-
     return (
-        <button onClick={handleDelete}>Poista</button>
+        <div className="error">
+            {message}
+        </div>
+    )
+}
+
+const DeleteButton = ({handler}) => {
+    return (
+        <button onClick={handler}>Poista</button>
     )
 }
 
 
-const Person = ({person}) => {
+const Person = (props) => {
     return (
-        <tr><td>{person.name}</td><td>{person.number}</td><td><DeleteButton person={person}/></td></tr>
+        <tr><td>{props.person.name}</td><td>{props.person.number}</td><td><DeleteButton handler={props.handler}/></td></tr>
     )
 }
 
@@ -46,6 +45,10 @@ class App extends React.Component {
     }
 
     componentDidMount() {
+        this.read()
+    }
+
+    read() {
         personService
             .read()
             .then(response => {
@@ -59,6 +62,18 @@ class App extends React.Component {
 
     handleNumberChange = (event) => {
         this.setState({ newNumber: event.target.value })
+    }
+
+    handleDelete = (id) => {
+        const name = this.state.persons.find(p => p.id === id).name
+
+        if (window.confirm('Poistetaanko varmasti ' + name + '?')) {
+            personService
+                ._delete(id)
+                .then(response => {
+                    this.read()
+                })
+        }
     }
 
     addPerson = (event) => {
@@ -100,7 +115,7 @@ class App extends React.Component {
                 <h2>Numerot</h2>
                 <table>
                     <tbody>
-                        {this.state.persons.map(person => <Person key={person.name} person={person} />)}
+                        {this.state.persons.map(person => <Person key={person.name} person={person} handler={() => this.handleDelete(person.id)} />)}
                     </tbody>
                 </table>
             </div>
